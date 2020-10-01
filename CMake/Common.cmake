@@ -22,9 +22,11 @@ endif()
 
 option(USE_OpenMP "Use OpenMP" ON)
 if(USE_OpenMP)
-	FIND_PACKAGE(OpenMP)
+	option(APPLE_OMP_AUTOADD "Add OpenMP if using AppleClang" ON)
+
+	find_package(OpenMP QUIET)
 	if(NOT "${OpenMP_FOUND}" OR NOT "${OpenMP_CXX_FOUND}")
-		if("${APPLE_OMP_AUTOADD}" AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS "7")
+		if("${APPLE_OMP_AUTOADD}" AND "${APPLE}")
 			message(STATUS "AppleClang >= 7.0 detected, adding OpenMP. Disable with -DAPPLE_OMP_AUTOADD=OFF")
 
 			find_program(BREW NAMES brew)
