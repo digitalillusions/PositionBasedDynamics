@@ -57,7 +57,9 @@ endif()
 
 set (CMAKE_CXX_STANDARD 11)
 
+if (MSVC)
 add_definitions(-D_CRT_SECURE_NO_DEPRECATE)
+endif(MSVC)
 
 OPTION(USE_DOUBLE_PRECISION "Use double precision"	ON)
 if (USE_DOUBLE_PRECISION)

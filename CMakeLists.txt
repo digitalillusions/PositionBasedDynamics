@@ -23,8 +23,9 @@ else()
 endif()	
 
 include(ExternalProject)
-set(EigenDir "${CMAKE_SOURCE_DIR}/extern/eigen")
 
+## Eigen3 is used by most of the libraries that follow
+find_package(Eigen3 REQUIRED)
 
 set(EXT_CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
 if (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
@@ -40,11 +41,11 @@ else()
 	   Ext_Discregrid
 	   PREFIX "${ExternalInstallDir}/Discregrid"
 	   GIT_REPOSITORY https://github.com/InteractiveComputerGraphics/Discregrid.git
-	   GIT_TAG "267067f727c552eba7da8bdb406eafd40673823e"
+	   GIT_TAG "0b69062ff9c56fbb6dcecd296652028bedbacf0e"
 	   INSTALL_DIR ${ExternalInstallDir}/Discregrid
 	   CMAKE_ARGS -DCMAKE_BUILD_TYPE:STRING=${EXT_CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX:PATH=${ExternalInstallDir}/Discregrid
 	   -DBUILD_AS_SHARED_LIBS:BOOL=0
-	   -DBUILD_CMD_EXECUTABLE:BOOL=0 -DEIGEN3_INCLUDE_DIR:PATH=${EigenDir}
+	   -DBUILD_CMD_EXECUTABLE:BOOL=0 -DEIGEN3_INCLUDE_DIR:PATH=${EIGEN3_INCLUDE_DIR}
 	) 
 	ExternalProject_Get_Property(Ext_Discregrid INSTALL_DIR)
 	set(Discregrid_INCLUDE_DIR ${INSTALL_DIR}/include)
@@ -62,7 +63,7 @@ else()
 	   Ext_GenericParameters
 	   PREFIX "${ExternalInstallDir}/GenericParameters"
 	   GIT_REPOSITORY https://github.com/InteractiveComputerGraphics/GenericParameters.git
-	   GIT_TAG "b1ad669fac8d106515f6aa8514a03598d5766a36"
+	   GIT_TAG "9f1570aad21017c0116adf6a42bc4a19547df6ec"
 	   INSTALL_DIR ${ExternalInstallDir}/GenericParameters
 	   CMAKE_ARGS -DCMAKE_BUILD_TYPE=${EXT_CMAKE_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX:PATH=${ExternalInstallDir}/GenericParameters -DGENERICPARAMETERS_NO_TESTS:BOOL=1		
 	) 
